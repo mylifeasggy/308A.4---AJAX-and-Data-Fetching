@@ -93,17 +93,8 @@ breedSelect.addEventListener('change', async (e) => {
     let caroItem = Carousel.createCarouselItem(src, alt, img);
     Carousel.appendCarousel(caroItem);
   }
-  Carousel.start();
 
-});
-
-
-async function info() { 
-
-  let info = await fetch ('https://api.thecatapi.com/v1/breeds?limit=1&page=0')
-   let infobreeds = await info.json();
-
-   const infoB = infobreeds[0]
+ const infoB = breedE[0].breeds[0]
    infoB.name
 
    const h1 = document.createElement('h1')
@@ -118,9 +109,13 @@ async function info() {
     
    infoDump.appendChild(h1)
    infoDump.appendChild(p)
-}
 
-info()
+  Carousel.start();
+
+});
+
+initialLoad();
+
 
 /**
  * 3. Fork your own sandbox, creating a new one named "JavaScript Axios Lab."
