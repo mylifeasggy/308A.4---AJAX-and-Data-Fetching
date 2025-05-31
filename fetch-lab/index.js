@@ -114,7 +114,7 @@ breedSelect.addEventListener('change', async (e) => {
 
 });
 
-initialLoad();
+
 
 
 /**
@@ -129,10 +129,8 @@ initialLoad();
  *   by setting a default header with your API key so that you do not have to
  *   send it manually with all of your requests! You can also set a default base URL!
  */
-
-
-
-
+axios.defaults.baseURL = "https://api.thecatapi.com/v1";
+axios.defaults.headers.common["x-api-key"] = API_KEY;
 
 
 /**
@@ -142,7 +140,18 @@ initialLoad();
  * - As an added challenge, try to do this on your own without referencing the lesson material.
  */
 
+axios.interceptors.request.use((config) => {
+    console.log('Start request to:', config.url)
+  config.metadata ={ startTime: new Date() };
+  return config
+})
 
+axios.interceptors.response.use((response) => {
+  const endTime = new Date();  
+  const duration = endTime-response.config.metadata.startTime;     
+  console.log(`End time: ${duration}ms`)  
+  return response
+})
 
 
 /**

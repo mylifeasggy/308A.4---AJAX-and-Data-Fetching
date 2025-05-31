@@ -32,8 +32,7 @@ const API_KEY = "live_ox3ZfhPQyHWoQOA4mWm8r7VWuKx5lv5dVCADKwfSO2OZnufK1CYAfjpriX
  *   send it manually with all of your requests! You can also set a default base URL!
  */
 
-axios.defaults.baseURL = "https://api.thecatapi.com/v1";
-axios.defaults.headers.common["x-api-key"] = API_KEY;
+
 
 
 
