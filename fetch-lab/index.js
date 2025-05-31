@@ -80,6 +80,8 @@ breedSelect.addEventListener('change', async (e) => {
   const selected = e.target.value
   //Check the API documentation if you're only getting a single object.
 
+  
+// I KNOW I HAVE TO PUT THE CONT API KEY ON THE LINK BUT FOR SOME REASON WASN'T WORKING THAT ONE.
   let url = (`https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=${selected}&api_key=live_ox3ZfhPQyHWoQOA4mWm8r7VWuKx5lv5dVCADKwfSO2OZnufK1CYAfjpriXZPUJpn`)
 
   console.log(url)

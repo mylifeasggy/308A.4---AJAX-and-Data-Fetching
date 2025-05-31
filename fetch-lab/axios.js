@@ -1,5 +1,5 @@
 
-export * as Carousel from "./Carousel.js";
+import * as Carousel from "./Carousel.js";
 export {
   createCarouselItem,
   clear,
@@ -7,7 +7,8 @@ export {
   start,
 } from "./Carousel.js";
 
-import axios from "axios";
+
+
 
  //The breed selection input element.
 const breedSelect = document.getElementById("breedSelect");
@@ -36,10 +37,69 @@ axios.defaults.headers.common["x-api-key"] = API_KEY;
  */
 
 
+ async function initialLoad() {
+
+   let data = await axios.get('/breeds?limit=10&page=0')
+   console.log(data)
+   let breedsdata = data.data;
+
+
+  for (let breed of breedsdata) {
+     const option = document.createElement('option');
+     option.value = breed.id
+     option.textContent = breed.name
+
+
+     breedSelect.appendChild(option)
+     console.log(option)
+    
+  }  
+ }
+
+initialLoad()
 
 
 
 
+breedSelect.addEventListener('change', async (e) => {
+  Carousel.clear();
+  infoDump.innerHTML = "";
+
+  const selected = e.target.value
+  //Check the API documentation if you're only getting a single object.
+
+  
+// I KNOW I HAVE TO PUT THE CONT API KEY ON THE LINK BUT FOR SOME REASON WASN'T WORKING THAT ONE.
+
+  const dataE = await axios.get(`/images/search?limit=10&breed_ids=${selected}`)
+  const breedE = dataE.data;
+
+  for (let item of breedE) {
+    let src = item.url;
+    let img = item.id;
+    let alt = item.breeds[0].name
+
+    let caroItem = Carousel.createCarouselItem(src, alt, img);
+    Carousel.appendCarousel(caroItem);
+  }
+
+ const infoB = breedE[0].breeds[0]
+   infoB.name
+
+   const h1 = document.createElement('h1')
+   h1.textContent = infoB.name
+
+   const p = document.createElement('p')
+   h1.style.textAlign = ('center')
+   p.textContent = infoB.description
+   p.style.textAlign = ('center')
+
+   infoDump.appendChild(h1)
+   infoDump.appendChild(p)
+
+  Carousel.start();
+
+}); 
 
 /*
  * 5. Add axios interceptors to log the time between request and response to the console.
@@ -65,7 +125,7 @@ axios.interceptors.response.use((response) => {
 async function getFirstBreed() {
   try {
     // This request will be logged by the interceptors above
-    const res = await axios.get("/breeds", { params: { limit: 10, page: 0 } });
+    const res = await axios.get("/breeds?limit=10&page=0");
     console.log("Got breed:", res.data[0].name);
   } catch (err) {
     console.error(err);
