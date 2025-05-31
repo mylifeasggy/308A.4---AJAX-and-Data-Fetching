@@ -22,6 +22,9 @@ const getFavouritesBtn = document.getElementById("getFavouritesBtn");
 const API_KEY = "live_ox3ZfhPQyHWoQOA4mWm8r7VWuKx5lv5dVCADKwfSO2OZnufK1CYAfjpriXZPUJpn"
 
 
+axios.defaults.baseURL = "https://api.thecatapi.com/v1";
+axios.defaults.headers.common["x-api-key"] = API_KEY;
+
 
 /* 4. Change all of your fetch() functions to axios!
  * - axios has already been imported for you within index.js.
@@ -45,15 +48,28 @@ const API_KEY = "live_ox3ZfhPQyHWoQOA4mWm8r7VWuKx5lv5dVCADKwfSO2OZnufK1CYAfjpriX
  * - As an added challenge, try to do this on your own without referencing the lesson material.
  */
 
-instance.interceptors.request.use((config) => {
+
+axios.interceptors.request.use((config) => {
     console.log('Start request to:', config.url)
   config.metadata ={ startTime: new Date() };
   return config
 })
 
-instance.interceptors.response.use((response) => {
+axios.interceptors.response.use((response) => {
   const endTime = new Date();  
   const duration = endTime-response.config.metadata.startTime;     
   console.log(`End time: ${duration}ms`)  
   return response
 })
+
+async function getFirstBreed() {
+  try {
+    // This request will be logged by the interceptors above
+    const res = await axios.get("/breeds", { params: { limit: 10, page: 0 } });
+    console.log("Got breed:", res.data[0].name);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+getFirstBreed();

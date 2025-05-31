@@ -27,6 +27,7 @@ const getFavouritesBtn = document.getElementById("getFavouritesBtn");
 // Step 0: Store your API key here for reference and easy access.
 const API_KEY = "live_ox3ZfhPQyHWoQOA4mWm8r7VWuKx5lv5dVCADKwfSO2OZnufK1CYAfjpriXZPUJpn"
 
+
 /**
  * 1. Create an async function "initialLoad" that does the following:
  * - Retrieve a list of breeds from the cat API using fetch().
@@ -112,10 +113,7 @@ breedSelect.addEventListener('change', async (e) => {
 
   Carousel.start();
 
-});
-
-
-
+}); 
 
 /**
  * 3. Fork your own sandbox, creating a new one named "JavaScript Axios Lab."
@@ -129,8 +127,8 @@ breedSelect.addEventListener('change', async (e) => {
  *   by setting a default header with your API key so that you do not have to
  *   send it manually with all of your requests! You can also set a default base URL!
  */
-axios.defaults.baseURL = "https://api.thecatapi.com/v1";
-axios.defaults.headers.common["x-api-key"] = API_KEY;
+
+
 
 
 /**
@@ -140,18 +138,6 @@ axios.defaults.headers.common["x-api-key"] = API_KEY;
  * - As an added challenge, try to do this on your own without referencing the lesson material.
  */
 
-axios.interceptors.request.use((config) => {
-    console.log('Start request to:', config.url)
-  config.metadata ={ startTime: new Date() };
-  return config
-})
-
-axios.interceptors.response.use((response) => {
-  const endTime = new Date();  
-  const duration = endTime-response.config.metadata.startTime;     
-  console.log(`End time: ${duration}ms`)  
-  return response
-})
 
 
 /**
