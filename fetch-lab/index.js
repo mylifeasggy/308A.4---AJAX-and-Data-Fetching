@@ -74,30 +74,33 @@ initialLoad()
 
 breedSelect.addEventListener('change', async (e) => {
   Carousel.clear();
-  console.log(`hi ${e.target.value}`)
+  infoDump.innerHTML = "";
+
+  const selected = e.target.value
   //Check the API documentation if you're only getting a single object.
 
-  let url = (`https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=${e.target.value}&api_key=live_ox3ZfhPQyHWoQOA4mWm8r7VWuKx5lv5dVCADKwfSO2OZnufK1CYAfjpriXZPUJpn`)
+  let url = (`https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=${selected}&api_key=live_ox3ZfhPQyHWoQOA4mWm8r7VWuKx5lv5dVCADKwfSO2OZnufK1CYAfjpriXZPUJpn`)
 
   console.log(url)
   const dataE = await fetch(url)
   const breedE = await dataE.json();
 
   for (let item of breedE) {
-    let src = item.url
-    let img = item.id
+    let src = item.url;
+    let img = item.id;
     let alt = item.breeds[0].name
 
-    let caroItem = Carousel.createCarouselItem(src, alt, img)
-    Carousel.appendCarousel(caroItem)
+    let caroItem = Carousel.createCarouselItem(src, alt, img);
+    Carousel.appendCarousel(caroItem);
   }
-  
-})
+  Carousel.start();
+
+});
 
 
 async function info() { 
 
-  let info = await fetch ('https://api.thecatapi.com/v1/breeds?limit=10&page=0')
+  let info = await fetch ('https://api.thecatapi.com/v1/breeds?limit=1&page=0')
    let infobreeds = await info.json();
 
    const infoB = infobreeds[0]
@@ -118,7 +121,6 @@ async function info() {
 }
 
 info()
-
 
 /**
  * 3. Fork your own sandbox, creating a new one named "JavaScript Axios Lab."
