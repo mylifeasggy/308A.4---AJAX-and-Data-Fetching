@@ -6,12 +6,13 @@
 /*FETCH() API: RETURNS A PROMISE WE CAN HANDLE IT WITH AWAIT/ASYN OR THEN. CATCH*/
 
 import * as Carousel from "./Carousel.js";
-import {
+export {
   createCarouselItem,
   clear,
   appendCarousel,
   start,
 } from "./Carousel.js";
+
 // import axios from "axios";
 
 // The breed selection input element.
@@ -24,7 +25,7 @@ const progressBar = document.getElementById("progressBar");
 const getFavouritesBtn = document.getElementById("getFavouritesBtn");
 
 // Step 0: Store your API key here for reference and easy access.
-const API_KEY = "live_ox3ZfhPQyHWoQOA4mWm8r7VWuKx5lv5dVCADKwfSO2OZnufK1CYAfjpriXZPUJpn     "
+const API_KEY = "live_ox3ZfhPQyHWoQOA4mWm8r7VWuKx5lv5dVCADKwfSO2OZnufK1CYAfjpriXZPUJpn"
 
 /**
  * 1. Create an async function "initialLoad" that does the following:
@@ -36,12 +37,10 @@ const API_KEY = "live_ox3ZfhPQyHWoQOA4mWm8r7VWuKx5lv5dVCADKwfSO2OZnufK1CYAfjpriX
  */
  async function initialLoad() {
 
-  const data = await fetch ('https://api.thecatapi.com/v1/breeds/?limit=10')
-  const breedsdata = await data.json();
+   let data = await fetch ('https://api.thecatapi.com/v1/breeds?limit=10&page=0')
+   let breedsdata = await data.json();
 
-  console.log(breedsdata)
 
-  //console.log(data)
 
   for (let breed of breedsdata) {
      const option = document.createElement('option');
@@ -50,6 +49,7 @@ const API_KEY = "live_ox3ZfhPQyHWoQOA4mWm8r7VWuKx5lv5dVCADKwfSO2OZnufK1CYAfjpriX
 
 
      breedSelect.appendChild(option)
+     console.log(option)
     
   }  
  }
@@ -73,32 +73,52 @@ initialLoad()
  */
 
 breedSelect.addEventListener('change', async (e) => {
-
+  Carousel.clear();
+  console.log(`hi ${e.target.value}`)
   //Check the API documentation if you're only getting a single object.
-  
-  let url = `https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=${e.target.value}`
 
+  let url = (`https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=${e.target.value}&api_key=live_ox3ZfhPQyHWoQOA4mWm8r7VWuKx5lv5dVCADKwfSO2OZnufK1CYAfjpriXZPUJpn`)
+
+  console.log(url)
   const dataE = await fetch(url)
-  const breedE = await dataE.json()
-
-
+  const breedE = await dataE.json();
 
   for (let item of breedE) {
-    console.log(item)
-
     let src = item.url
     let img = item.id
-    let alt = item.height
-    
-  let caroItem = Carousel.createCarouselItem(src, alt, img)
-  console.log(caroItem)
-  Carousel.appendCarousel(caroItem)
- 
- 
-  }
+    let alt = item.breeds[0].name
 
+    let caroItem = Carousel.createCarouselItem(src, alt, img)
+    Carousel.appendCarousel(caroItem)
+  }
+  
 })
-//CARROUSELL NOT WORKIN
+
+
+async function info() { 
+
+  let info = await fetch ('https://api.thecatapi.com/v1/breeds?limit=10&page=0')
+   let infobreeds = await info.json();
+
+   const infoB = infobreeds[0]
+   infoB.name
+
+   const h1 = document.createElement('h1')
+   h1.textContent = infoB.name
+
+   console.log(h1)
+   const p = document.createElement('p')
+   h1.style.textAlign = ('center')
+   p.textContent = infoB.description
+   p.style.textAlign = ('center')
+   console.log(p)
+    
+   infoDump.appendChild(h1)
+   infoDump.appendChild(p)
+}
+
+info()
+
 
 /**
  * 3. Fork your own sandbox, creating a new one named "JavaScript Axios Lab."
