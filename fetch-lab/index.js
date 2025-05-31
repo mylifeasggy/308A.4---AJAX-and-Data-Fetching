@@ -36,6 +36,7 @@ const API_KEY = "live_ox3ZfhPQyHWoQOA4mWm8r7VWuKx5lv5dVCADKwfSO2OZnufK1CYAfjpriX
  *  - Each option should display text equal to the name of the breed.
  * This function should execute immediately.
  */
+
  async function initialLoad() {
 
    let data = await fetch ('https://api.thecatapi.com/v1/breeds?limit=10&page=0')
@@ -82,7 +83,7 @@ breedSelect.addEventListener('change', async (e) => {
 
   
 // I KNOW I HAVE TO PUT THE CONT API KEY ON THE LINK BUT FOR SOME REASON WASN'T WORKING THAT ONE.
-  let url = (`https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=${selected}&api_key=live_ox3ZfhPQyHWoQOA4mWm8r7VWuKx5lv5dVCADKwfSO2OZnufK1CYAfjpriXZPUJpn`)
+  let url= (`https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=${selected}&api_key=live_ox3ZfhPQyHWoQOA4mWm8r7VWuKx5lv5dVCADKwfSO2OZnufK1CYAfjpriXZPUJpn`)
 
   console.log(url)
   const dataE = await fetch(url)
