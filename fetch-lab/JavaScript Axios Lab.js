@@ -166,8 +166,29 @@ function updateProgress(progressEvent) {
     if (progressBar) {
         progressBar.style.width = percentage
     }else {
-        console.log('Percentage unknown')
+        console.log('Percentage unknown');
     }
 }
 
+/**
+ * 8. To practice posting data, we'll create a system to "favourite" certain images.
+ * - The skeleton of this function has already been created for you.
+ * - This function is used within Carousel.js to add the event listener as items are created.
+ *  - This is why we use the export keyword for this function.
+ * - Post to the cat API's favourites endpoint with the given ID.
+ * - The API documentation gives examples of this functionality using fetch(); use Axios!
+ * - Add additional logic to this function such that if the image is already favourited,
+ *   you delete that favourite using the API, giving this function "toggle" functionality.
+ * - You can call this function by clicking on the heart at the top right of any image.
+ */
+
+/**
+ * 9. Test your favourite() function by creating a getFavourites() function.
+ * - Use Axios to get all of your favourites from the cat API.
+ * - Clear the carousel and display your favourites when the button is clicked.
+ *  - You will have to bind this event listener to getFavouritesBtn yourself.
+ *  - Hint: you already have all of the logic built for building a carousel.
+ *    If that isn't in its own function, maybe it should be so you don't have to
+ *    repeat yourself in this section.
+ */
 

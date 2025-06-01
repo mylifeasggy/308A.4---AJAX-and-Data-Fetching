@@ -13,7 +13,7 @@ export {
   start,
 } from "./Carousel.js";
 
-// import axios from "axios";
+//import axios from "axios";
 
 // The breed selection input element.
 const breedSelect = document.getElementById("breedSelect");
@@ -131,6 +131,7 @@ breedSelect.addEventListener('change', async (e) => {
  */
 export async function favourite(imgId) {
 
+   
 }
 
 /**
@@ -143,10 +144,3 @@ export async function favourite(imgId) {
  *    repeat yourself in this section.
  */
 
-/**
- * 10. Test your site, thoroughly!
- * - What happens when you try to load the Malayan breed?
- *  - If this is working, good job! If not, look for the reason why and fix it!
- * - Test other breeds as well. Not every breed has the same data available, so
- *   your code should account for this.
- */
