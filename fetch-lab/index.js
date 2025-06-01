@@ -51,7 +51,7 @@ const API_KEY = "live_ox3ZfhPQyHWoQOA4mWm8r7VWuKx5lv5dVCADKwfSO2OZnufK1CYAfjpriX
 
 
      breedSelect.appendChild(option)
-     console.log(option)
+    // console.log(option)
     
   }  
  }

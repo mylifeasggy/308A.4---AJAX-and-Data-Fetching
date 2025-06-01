@@ -35,6 +35,7 @@ axios.defaults.headers.common["x-api-key"] = API_KEY;
 
 //
 axios.interceptors.request.use((config) => {
+     document.body.style.cursor = "progress";
 
     if(progressBar){
 
@@ -46,6 +47,8 @@ axios.interceptors.request.use((config) => {
 })
 
 axios.interceptors.response.use((response) => {
+    document.body.style.cursor = "default";
+
     const endTime = new Date();
     const duration = endTime - response.config.metadata.startTime;
     console.log(`End time: ${duration}ms`)
@@ -145,7 +148,26 @@ console.log your ProgressEvent object within updateProgress, and familiarize you
 Update the progress of the request using the properties you are given.
 Note that we are not downloading a lot of data, so onDownloadProgress will likely only fire once or twice per request to this API. This is still a concept worth familiarizing yourself with for future projec */
 
- function updateProgress(progressEvent) {
-    console.log('download', progressEvent);
+
+//   onDownloadProgress: function (progressEvent) {
+    // Do whatever you want with the native progress event
+
+function updateProgress(progressEvent) {
+
+    console.log('Progress Event:', progressEvent);
+
+    if (total) {
+         let percentage = Math.round(
+        (progressEvent.loaded * 100) / progressEvent.total
+      );
+      console.log(`% done-> ", ${percentage}`);
+    }
+
+    if (progressBar) {
+        progressBar.style.width = percentage
+    }else {
+        console.log('Percentage unknown')
+    }
 }
-updateProgress()
+
+
