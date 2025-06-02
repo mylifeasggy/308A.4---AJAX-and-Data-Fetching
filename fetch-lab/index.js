@@ -129,8 +129,19 @@ breedSelect.addEventListener('change', async (e) => {
  *   you delete that favourite using the API, giving this function "toggle" functionality.
  * - You can call this function by clicking on the heart at the top right of any image.
  */
-export async function favourite(imgId) {
 
+axios.defaults.baseURL = "https://api.thecatapi.com/v1";
+axios.defaults.headers.common["x-api-key"] = API_KEY;
+
+
+export async function favourite(imgId) {
+  console.log(`Checking favourite status for image ${imgId}...`);
+  const response = await axios.get(`/favourites`);
+  const allFavourites = response.data;
+
+
+
+  console.log(allFavourites)
    
 }
 
