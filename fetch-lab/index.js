@@ -135,15 +135,41 @@ axios.defaults.headers.common["x-api-key"] = API_KEY;
 
 
 export async function favourite(imgId) {
-  console.log(`Checking favourite status for image ${imgId}...`);
-  const response = await axios.get(`/favourites`);
-  const allFavourites = response.data;
 
 
+  const favourites = await axios.get(`/favourites`);
+  const allFavourites = favourites.data;
 
-  console.log(allFavourites)
-   
+  let favClicked = null;
+  for (let i = 0; i < allFavourites.length; i++) {
+    const favs = allFavourites[i];
+
+    if (favs.image_id === imgId) {
+      favClicked = favs;
+      break
+    }
+  }
+
+  if (favClicked) {
+    console.log(`Image ${imgId} already in your favorites`)
+    await axios.delete(`/favourites/${favClicked.id}`)
+    console.log(`Image ${imgId} delete from favs`)
+
+  } else {
+    const post = await axios.post(`/favourites`, {
+      image_id: imgId
+
+
+    });
+    return {
+      status: 'favourited',
+      imageId: imgId,
+    };
+  }
+
+
 }
+
 
 /**
  * 9. Test your favourite() function by creating a getFavourites() function.
@@ -154,4 +180,3 @@ export async function favourite(imgId) {
  *    If that isn't in its own function, maybe it should be so you don't have to
  *    repeat yourself in this section.
  */
-
